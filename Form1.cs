@@ -19,10 +19,26 @@ namespace uongoClient
         int idCurrent = -1;
         string dbCurrent = null;
         public DBUtils db = null;
+        int rowIndex = -1;
         public Form1()
         {
             InitializeComponent();
             ConnectToDb();
+            PushContentInElements();
+        }
+
+        private void PushContentInElements()
+        {
+            // times
+
+            this.TimesStatus.Items.Clear();
+            this.TimesWho.Items.Add("Школьник");
+            this.TimesWho.Items.Add("Дошкольник");
+
+            this.TimesStatus.Items.Add("Свободно");
+            this.TimesStatus.Items.Add("Занято");
+
+            //end times
         }
 
         private void ConnectToDb()
@@ -243,6 +259,70 @@ namespace uongoClient
             } else
             {
                 MessageBox.Show("Отсутствует подключения к базе. За помощью обратитесь к системному адрминистратору");
+            }
+        }
+
+        private void Button1_Click(object sender, EventArgs e)
+        {
+            this.showMeeting();
+        }
+
+        private void Button2_Click(object sender, EventArgs e)
+        {
+            this.ShowOrbuch();
+        }
+
+        private void Button3_Click(object sender, EventArgs e)
+        {
+            this.showTime();
+        }
+
+        private void DataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            rowIndex = this.dataGridView1.CurrentCell.RowIndex;
+            this.dataGridView1.Rows[rowIndex].Selected = true;
+        }
+
+        private void DateTimePicker1_ValueChanged(object sender, EventArgs e)
+        {
+            //MessageBox.Show(this.dateTimePicker1.Value.ToLongDateString());
+        }
+
+        private void Button6_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string result = this.TimesTimePicker.SelectionRange.Start.ToLongDateString() + "-" + this.TimesHours.Value.ToString() + ":" + TimesMinutes.Value.ToString();
+                string type = null;
+
+                if (!string.IsNullOrEmpty(this.TimesWho.Text))
+                    type = Convert.ToString(this.TimesWho.SelectedIndex);
+                else {
+                    MessageBox.Show("А для кого?");
+                    return;
+                }
+                if (db != null)
+                {
+                    string sql = "INSERT INTO `times`(dt, used, type) " +
+                        "VALUES('" + result + "', '0', '" + type + "')";
+                    int count = db.ExNonQuery(sql, dbCurrent);
+                    if (count > 0)
+                    {
+                        MessageBox.Show("Успешно");
+                        this.showTime();
+                    }
+                    else MessageBox.Show("Не удалось добавить");
+
+                }
+                else
+                {
+                    MessageBox.Show("Нужно подключиться к базе");
+                }
+
+            }
+            catch (FormatException exc)
+            {
+                MessageBox.Show("Ошибка формата");
             }
         }
     }
