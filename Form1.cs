@@ -281,6 +281,41 @@ namespace uongoClient
         {
             rowIndex = this.dataGridView1.CurrentCell.RowIndex;
             this.dataGridView1.Rows[rowIndex].Selected = true;
+            switch (dbCurrent)
+            {
+                case "times":
+                    int[] date = Utils.ConverStrDateToIntArrDate(this.dataGridView1.Rows[rowIndex].Cells[1].Value.ToString());
+                    this.TimesTimePicker.SetDate(new DateTime(date[2], date[1], date[0]));
+                    int[] arrTime = Utils.GetHourAndMinutes((this.dataGridView1.Rows[rowIndex].Cells[1].Value.ToString().Split(new char[] { ' ' })[3]).Split(new char[] { 'г', '.', '-' })[3]);
+                    this.TimesHours.Value = arrTime[0];
+                    this.TimesMinutes.Value = arrTime[1];
+
+                    this.TimesStatus.SelectedText = this.dataGridView1.Rows[rowIndex].Cells[2].Value.ToString();
+                    this.TimesWho.SelectedText = this.dataGridView1.Rows[rowIndex].Cells[3].Value.ToString();
+                    //int index = 0;
+                    //string[] s = this.dataGridView1.Rows[rowIndex].Cells[1].Value.ToString().Split(new char[] { ' ' });
+                    //foreach (string item in s[3].Split('г', '.', '-', ':'))
+                    //{
+
+                    //    Console.WriteLine("[" + (index++) + "](" + item + ")");
+                    //}
+                    //string[] arrTime = this.dataGridView1.Rows[rowIndex].Cells[1].Value.ToString().Split(new char[] {'-', 'г'});
+                    //foreach(string ar in arrTime)
+                    //{
+
+                    //}
+                    //string[] arrHour = arrTime[3].Split(new char[] {':'});
+
+                    //this.TimesHours.Value = Convert.ToInt32(arrHour[0]);
+                    //this.TimesMinutes.Value = Convert.ToInt32(arrHour[1]);
+
+
+
+
+                    break;
+                default:
+                    break;
+            }
         }
 
         private void DateTimePicker1_ValueChanged(object sender, EventArgs e)
@@ -288,13 +323,28 @@ namespace uongoClient
             //MessageBox.Show(this.dateTimePicker1.Value.ToLongDateString());
         }
 
+        //private int[] ConvertArrayStringDateToArrayInt(string date)
+        //{
+            
+        //    string[] temp = date.Split(new char[] { ' ' });
+        //    int[] result = new int[temp.Length];
+        //    switch(temp[1])
+        //    {
+                
+        //        default:
+        //            // ...
+        //            break;
+        //    }
+        //    return result;
+        //}
+
         private void Button6_Click(object sender, EventArgs e)
         {
             try
             {
                 string result = this.TimesTimePicker.SelectionRange.Start.ToLongDateString() + "-" + this.TimesHours.Value.ToString() + ":" + TimesMinutes.Value.ToString();
                 string type = null;
-
+                
                 if (!string.IsNullOrEmpty(this.TimesWho.Text))
                     type = Convert.ToString(this.TimesWho.SelectedIndex);
                 else {
@@ -324,6 +374,12 @@ namespace uongoClient
             {
                 MessageBox.Show("Ошибка формата");
             }
+        }
+
+        private void TimesTimePicker_DateChanged(object sender, DateRangeEventArgs e)
+        {
+            //MessageBox.Show(this.TimesTimePicker.SelectionRange.Start.ToLongDateString());
+            //Console.WriteLine(this.TimesTimePicker.SelectionRange.Start.Month.ToString());
         }
     }
 }

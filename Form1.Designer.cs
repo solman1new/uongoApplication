@@ -207,6 +207,7 @@
             this.TimesTimePicker.Location = new System.Drawing.Point(266, 397);
             this.TimesTimePicker.Name = "TimesTimePicker";
             this.TimesTimePicker.TabIndex = 19;
+            this.TimesTimePicker.DateChanged += new System.Windows.Forms.DateRangeEventHandler(this.TimesTimePicker_DateChanged);
             // 
             // Form1
             // 
