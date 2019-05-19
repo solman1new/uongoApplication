@@ -32,8 +32,9 @@ namespace uongoClient
             // times
 
             this.TimesStatus.Items.Clear();
-            this.TimesWho.Items.Add("Школьник");
             this.TimesWho.Items.Add("Дошкольник");
+            this.TimesWho.Items.Add("Школьник");
+            
 
             this.TimesStatus.Items.Add("Свободно");
             this.TimesStatus.Items.Add("Занято");
@@ -264,16 +265,19 @@ namespace uongoClient
 
         private void Button1_Click(object sender, EventArgs e)
         {
+            rowIndex = -1;
             this.showMeeting();
         }
 
         private void Button2_Click(object sender, EventArgs e)
         {
+            rowIndex = -1;
             this.ShowOrbuch();
         }
 
         private void Button3_Click(object sender, EventArgs e)
         {
+            rowIndex = -1;
             this.showTime();
         }
 
@@ -292,26 +296,6 @@ namespace uongoClient
 
                     this.TimesStatus.SelectedText = this.dataGridView1.Rows[rowIndex].Cells[2].Value.ToString();
                     this.TimesWho.SelectedText = this.dataGridView1.Rows[rowIndex].Cells[3].Value.ToString();
-                    //int index = 0;
-                    //string[] s = this.dataGridView1.Rows[rowIndex].Cells[1].Value.ToString().Split(new char[] { ' ' });
-                    //foreach (string item in s[3].Split('г', '.', '-', ':'))
-                    //{
-
-                    //    Console.WriteLine("[" + (index++) + "](" + item + ")");
-                    //}
-                    //string[] arrTime = this.dataGridView1.Rows[rowIndex].Cells[1].Value.ToString().Split(new char[] {'-', 'г'});
-                    //foreach(string ar in arrTime)
-                    //{
-
-                    //}
-                    //string[] arrHour = arrTime[3].Split(new char[] {':'});
-
-                    //this.TimesHours.Value = Convert.ToInt32(arrHour[0]);
-                    //this.TimesMinutes.Value = Convert.ToInt32(arrHour[1]);
-
-
-
-
                     break;
                 default:
                     break;
@@ -340,8 +324,6 @@ namespace uongoClient
 
         private void Button6_Click(object sender, EventArgs e)
         {
-            try
-            {
                 string result = this.TimesTimePicker.SelectionRange.Start.ToLongDateString() + "-" + this.TimesHours.Value.ToString() + ":" + TimesMinutes.Value.ToString();
                 string type = null;
                 
@@ -368,18 +350,60 @@ namespace uongoClient
                 {
                     MessageBox.Show("Нужно подключиться к базе");
                 }
-
-            }
-            catch (FormatException exc)
-            {
-                MessageBox.Show("Ошибка формата");
-            }
         }
 
         private void TimesTimePicker_DateChanged(object sender, DateRangeEventArgs e)
         {
             //MessageBox.Show(this.TimesTimePicker.SelectionRange.Start.ToLongDateString());
             //Console.WriteLine(this.TimesTimePicker.SelectionRange.Start.Month.ToString());
+        }
+
+        private void Button4_Click(object sender, EventArgs e)
+        {
+            if (rowIndex != -1)
+            {
+
+                string result = this.TimesTimePicker.SelectionRange.Start.ToLongDateString() + "-" + this.TimesHours.Value.ToString() + ":" + TimesMinutes.Value.ToString();
+                string type = null;
+                string used = null;
+
+
+                if (!string.IsNullOrEmpty(this.TimesWho.Text))
+                    type = Convert.ToString(this.TimesWho.SelectedIndex);
+                else
+                {
+                    MessageBox.Show("А для кого?");
+                    return;
+                }
+
+                if (!string.IsNullOrEmpty(this.TimesStatus.Text))
+                    used = Convert.ToString(this.TimesStatus.SelectedIndex);
+                else
+                {
+                    MessageBox.Show("Нужно выбрать статус");
+                    return;
+                }
+
+                if (db != null)
+                {
+                    //string sql = "INSERT INTO `times`(dt, used, type) " +
+                    //    "VALUES('" + result + "', '0', '" + type + "')";
+                    string sql = "UPDATE `times` SET `dt`='" + result + "', `used`=" + used + ", `type`=" + type + " WHERE `id`=" + this.dataGridView1.Rows[rowIndex].Cells[0].Value.ToString();
+                    int count = db.ExNonQuery(sql, dbCurrent);
+                    if (count > 0)
+                    {
+                        MessageBox.Show("Успешно");
+                        this.showTime();
+                    }
+                    else MessageBox.Show("Не удалось добавить");
+
+                }
+                else
+                {
+                    MessageBox.Show("Нужно подключиться к базе");
+                }
+            }
+            else MessageBox.Show("Вы не выбрали строку для редактирования");
         }
     }
 }
