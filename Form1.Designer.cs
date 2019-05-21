@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.loadMore = new System.Windows.Forms.Button();
@@ -45,6 +47,17 @@
             this.button5 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
             this.TimesTimePicker = new System.Windows.Forms.MonthCalendar();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.ObruchName = new System.Windows.Forms.TextBox();
+            this.ObruchAddress = new System.Windows.Forms.TextBox();
+            this.ObruchCity = new System.Windows.Forms.TextBox();
+            this.ObruchPhone = new System.Windows.Forms.TextBox();
+            this.ObruchAdd = new System.Windows.Forms.Button();
+            this.ObruchDelete = new System.Windows.Forms.Button();
+            this.ObruchSave = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TimesHours)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TimesMinutes)).BeginInit();
@@ -55,10 +68,22 @@
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.DarkRed;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(12, 41);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.ActiveCaption;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
+            this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridView1.Size = new System.Drawing.Size(1172, 315);
             this.dataGridView1.TabIndex = 1;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView1_CellClick);
@@ -110,9 +135,10 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(183, 397);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label1.Location = new System.Drawing.Point(173, 397);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(77, 13);
+            this.label1.Size = new System.Drawing.Size(87, 15);
             this.label1.TabIndex = 6;
             this.label1.Text = "Дата и время";
             // 
@@ -128,7 +154,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(206, 604);
+            this.label3.Location = new System.Drawing.Point(196, 604);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(54, 13);
             this.label3.TabIndex = 8;
@@ -160,7 +186,7 @@
             // 
             // TimesStatus
             // 
-            this.TimesStatus.FormattingEnabled = true;
+            this.TimesStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.TimesStatus.Location = new System.Drawing.Point(266, 565);
             this.TimesStatus.Name = "TimesStatus";
             this.TimesStatus.Size = new System.Drawing.Size(290, 21);
@@ -168,6 +194,7 @@
             // 
             // TimesWho
             // 
+            this.TimesWho.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.TimesWho.FormattingEnabled = true;
             this.TimesWho.Location = new System.Drawing.Point(266, 601);
             this.TimesWho.Name = "TimesWho";
@@ -192,6 +219,7 @@
             this.button5.TabIndex = 17;
             this.button5.Text = "Удалить";
             this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.Button5_Click);
             // 
             // button6
             // 
@@ -208,7 +236,107 @@
             this.TimesTimePicker.Location = new System.Drawing.Point(266, 397);
             this.TimesTimePicker.Name = "TimesTimePicker";
             this.TimesTimePicker.TabIndex = 19;
+            this.TimesTimePicker.TrailingForeColor = System.Drawing.Color.MediumOrchid;
             this.TimesTimePicker.DateChanged += new System.Windows.Forms.DateRangeEventHandler(this.TimesTimePicker_DateChanged);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label4.Location = new System.Drawing.Point(140, 426);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(95, 15);
+            this.label4.TabIndex = 20;
+            this.label4.Text = "Наименование";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label5.Location = new System.Drawing.Point(186, 451);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(41, 15);
+            this.label5.TabIndex = 21;
+            this.label5.Text = "Адрес";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label6.Location = new System.Drawing.Point(186, 475);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(42, 15);
+            this.label6.TabIndex = 22;
+            this.label6.Text = "Город";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label7.Location = new System.Drawing.Point(169, 496);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(60, 15);
+            this.label7.TabIndex = 23;
+            this.label7.Text = "Телефон";
+            // 
+            // ObruchName
+            // 
+            this.ObruchName.Location = new System.Drawing.Point(237, 423);
+            this.ObruchName.Name = "ObruchName";
+            this.ObruchName.Size = new System.Drawing.Size(289, 20);
+            this.ObruchName.TabIndex = 24;
+            this.ObruchName.TextChanged += new System.EventHandler(this.TextBox1_TextChanged);
+            // 
+            // ObruchAddress
+            // 
+            this.ObruchAddress.Location = new System.Drawing.Point(237, 448);
+            this.ObruchAddress.Name = "ObruchAddress";
+            this.ObruchAddress.Size = new System.Drawing.Size(289, 20);
+            this.ObruchAddress.TabIndex = 25;
+            // 
+            // ObruchCity
+            // 
+            this.ObruchCity.Location = new System.Drawing.Point(237, 472);
+            this.ObruchCity.Name = "ObruchCity";
+            this.ObruchCity.Size = new System.Drawing.Size(289, 20);
+            this.ObruchCity.TabIndex = 26;
+            // 
+            // ObruchPhone
+            // 
+            this.ObruchPhone.Location = new System.Drawing.Point(237, 496);
+            this.ObruchPhone.Name = "ObruchPhone";
+            this.ObruchPhone.Size = new System.Drawing.Size(289, 20);
+            this.ObruchPhone.TabIndex = 27;
+            // 
+            // ObruchAdd
+            // 
+            this.ObruchAdd.Location = new System.Drawing.Point(451, 522);
+            this.ObruchAdd.Name = "ObruchAdd";
+            this.ObruchAdd.Size = new System.Drawing.Size(75, 23);
+            this.ObruchAdd.TabIndex = 30;
+            this.ObruchAdd.Text = "Добавить";
+            this.ObruchAdd.UseVisualStyleBackColor = true;
+            this.ObruchAdd.Click += new System.EventHandler(this.ObruchAdd_Click);
+            // 
+            // ObruchDelete
+            // 
+            this.ObruchDelete.Location = new System.Drawing.Point(341, 522);
+            this.ObruchDelete.Name = "ObruchDelete";
+            this.ObruchDelete.Size = new System.Drawing.Size(75, 23);
+            this.ObruchDelete.TabIndex = 29;
+            this.ObruchDelete.Text = "Удалить";
+            this.ObruchDelete.UseVisualStyleBackColor = true;
+            this.ObruchDelete.Click += new System.EventHandler(this.ObruchDelete_Click);
+            // 
+            // ObruchSave
+            // 
+            this.ObruchSave.Location = new System.Drawing.Point(236, 522);
+            this.ObruchSave.Name = "ObruchSave";
+            this.ObruchSave.Size = new System.Drawing.Size(75, 23);
+            this.ObruchSave.TabIndex = 28;
+            this.ObruchSave.Text = "Сохранить";
+            this.ObruchSave.UseVisualStyleBackColor = true;
+            this.ObruchSave.Click += new System.EventHandler(this.ObruchSave_Click);
             // 
             // Form1
             // 
@@ -216,6 +344,17 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(1196, 661);
+            this.Controls.Add(this.ObruchAdd);
+            this.Controls.Add(this.ObruchDelete);
+            this.Controls.Add(this.ObruchSave);
+            this.Controls.Add(this.ObruchPhone);
+            this.Controls.Add(this.ObruchCity);
+            this.Controls.Add(this.ObruchAddress);
+            this.Controls.Add(this.ObruchName);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.TimesTimePicker);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.button5);
@@ -234,6 +373,8 @@
             this.Controls.Add(this.dataGridView1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Form1";
             this.Text = "Клиент";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
@@ -263,6 +404,17 @@
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.MonthCalendar TimesTimePicker;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox ObruchName;
+        private System.Windows.Forms.TextBox ObruchAddress;
+        private System.Windows.Forms.TextBox ObruchCity;
+        private System.Windows.Forms.TextBox ObruchPhone;
+        private System.Windows.Forms.Button ObruchAdd;
+        private System.Windows.Forms.Button ObruchDelete;
+        private System.Windows.Forms.Button ObruchSave;
     }
 }
 

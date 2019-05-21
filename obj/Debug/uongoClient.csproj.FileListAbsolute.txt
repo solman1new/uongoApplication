@@ -1,6 +1,3 @@
-C:\Users\admin\source\repos\uongoClient\obj\Debug\uongoClient.AddRowObruch.resources
-C:\Users\admin\source\repos\uongoClient\obj\Debug\uongoClient.AddRowTimes.resources
-C:\Users\admin\source\repos\uongoClient\obj\Debug\uongoClient.DeleteForm.resources
 C:\Users\admin\source\repos\uongoClient\obj\Debug\uongoClient.Form1.resources
 C:\Users\admin\source\repos\uongoClient\obj\Debug\uongoClient.MarkAsFinished.resources
 C:\Users\admin\source\repos\uongoClient\obj\Debug\uongoClient.Properties.Resources.resources

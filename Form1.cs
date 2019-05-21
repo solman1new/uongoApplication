@@ -25,6 +25,8 @@ namespace uongoClient
             InitializeComponent();
             ConnectToDb();
             PushContentInElements();
+            hiddenControlTimes();
+            hiddenControlObruch();
         }
 
         private void PushContentInElements()
@@ -155,6 +157,7 @@ namespace uongoClient
             }
         }
 
+        // вермя для запси на обследование
         private void showTime()
         {
             if (db.statusConnect())
@@ -181,7 +184,7 @@ namespace uongoClient
                     idCurrent = Convert.ToInt32(row[0]);
 
                     if (row[2].Equals("1"))
-                        row[2] = "Использовано";
+                        row[2] = "Занято";
                     else row[2] = "Свободно";
                     if (row[3].Equals("1"))
                         row[3] = "Школьник";
@@ -196,10 +199,76 @@ namespace uongoClient
             }
         }
 
+        private void showControlTimes()
+        {
+            this.label1.Visible = true;
+            this.label2.Visible = true;
+            this.label3.Visible = true;
+            this.TimesHours.Visible = true;
+            this.TimesMinutes.Visible = true;
+            this.TimesStatus.Visible = true;
+            this.TimesTimePicker.Visible = true;
+            this.TimesWho.Visible = true;
+            this.button4.Visible = true;
+            this.button5.Visible = true;
+            this.button6.Visible = true;
+        }
 
+        private void hiddenControlTimes()
+        {
+            this.label1.Visible = false;
+            this.label2.Visible = false;
+            this.label3.Visible = false;
+            this.TimesHours.Visible = false;
+            this.TimesMinutes.Visible = false;
+            this.TimesStatus.Visible = false;
+            this.TimesTimePicker.Visible = false;
+            this.TimesWho.Visible = false;
+            this.button4.Visible = false;
+            this.button5.Visible = false;
+            this.button6.Visible = false;
+        }
 
-        
-        
+        private void showControlObruch()
+        {
+            this.label4.Visible = true;
+            this.label5.Visible = true;
+            this.label6.Visible = true;
+            this.label7.Visible = true;
+            this.ObruchName.Visible = true;
+            this.ObruchAddress.Visible = true;
+            this.ObruchCity.Visible = true;
+            this.ObruchPhone.Visible = true;
+            this.ObruchSave.Visible = true;
+            this.ObruchDelete.Visible = true;
+            this.ObruchAdd.Visible = true;
+        }
+
+        private void hiddenControlObruch()
+        {
+            this.label4.Visible = false;
+            this.label5.Visible = false;
+            this.label6.Visible = false;
+            this.label7.Visible = false;
+            this.ObruchName.Visible = false;
+            this.ObruchAddress.Visible = false;
+            this.ObruchCity.Visible = false;
+            this.ObruchPhone.Visible = false;
+            this.ObruchSave.Visible = false;
+            this.ObruchDelete.Visible = false;
+            this.ObruchAdd.Visible = false;
+        }
+
+        private void showControlMeeting()
+        {
+
+        }
+
+        private void hiddenControlMeeting()
+        {
+
+        }
+
         private void LoadMore_Click(object sender, EventArgs e)
         {
             if(db.statusConnect())
@@ -229,7 +298,7 @@ namespace uongoClient
                             if (dbCurrent.Equals("times"))
                             {
                                 if (row[2].Equals("1"))
-                                    row[2] = "Использовано";
+                                    row[2] = "Занято";
                                 else row[2] = "Свободно";
                                 if (row[3].Equals("1"))
                                     row[3] = "Школьник";
@@ -265,21 +334,32 @@ namespace uongoClient
 
         private void Button1_Click(object sender, EventArgs e)
         {
+            hiddenControlTimes();
+            hiddenControlObruch();
+            showControlMeeting();
             rowIndex = -1;
             this.showMeeting();
         }
 
         private void Button2_Click(object sender, EventArgs e)
         {
+            hiddenControlTimes();
+            hiddenControlMeeting();
+            showControlObruch();
             rowIndex = -1;
             this.ShowOrbuch();
         }
 
         private void Button3_Click(object sender, EventArgs e)
         {
+            hiddenControlMeeting();
+            hiddenControlObruch();
+            showControlTimes();
             rowIndex = -1;
             this.showTime();
         }
+
+        
 
         private void DataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -294,33 +374,22 @@ namespace uongoClient
                     this.TimesHours.Value = arrTime[0];
                     this.TimesMinutes.Value = arrTime[1];
 
-                    this.TimesStatus.SelectedText = this.dataGridView1.Rows[rowIndex].Cells[2].Value.ToString();
-                    this.TimesWho.SelectedText = this.dataGridView1.Rows[rowIndex].Cells[3].Value.ToString();
+                    this.TimesStatus.SelectedIndex = this.TimesStatus.Items.IndexOf(this.dataGridView1.Rows[rowIndex].Cells[2].Value);
+                    this.TimesWho.SelectedIndex = this.TimesWho.Items.IndexOf(this.dataGridView1.Rows[rowIndex].Cells[3].Value);
+                    break;
+
+                case "obruch":
+                    this.ObruchName.Text = this.dataGridView1.Rows[rowIndex].Cells[1].Value.ToString();
+                    this.ObruchAddress.Text = this.dataGridView1.Rows[rowIndex].Cells[2].Value.ToString();
+                    this.ObruchCity.Text = this.dataGridView1.Rows[rowIndex].Cells[3].Value.ToString();
+                    this.ObruchPhone.Text = this.dataGridView1.Rows[rowIndex].Cells[4].Value.ToString();
                     break;
                 default:
                     break;
             }
         }
 
-        private void DateTimePicker1_ValueChanged(object sender, EventArgs e)
-        {
-            //MessageBox.Show(this.dateTimePicker1.Value.ToLongDateString());
-        }
-
-        //private int[] ConvertArrayStringDateToArrayInt(string date)
-        //{
-            
-        //    string[] temp = date.Split(new char[] { ' ' });
-        //    int[] result = new int[temp.Length];
-        //    switch(temp[1])
-        //    {
-                
-        //        default:
-        //            // ...
-        //            break;
-        //    }
-        //    return result;
-        //}
+      
 
         private void Button6_Click(object sender, EventArgs e)
         {
@@ -386,8 +455,7 @@ namespace uongoClient
 
                 if (db != null)
                 {
-                    //string sql = "INSERT INTO `times`(dt, used, type) " +
-                    //    "VALUES('" + result + "', '0', '" + type + "')";
+                    
                     string sql = "UPDATE `times` SET `dt`='" + result + "', `used`=" + used + ", `type`=" + type + " WHERE `id`=" + this.dataGridView1.Rows[rowIndex].Cells[0].Value.ToString();
                     int count = db.ExNonQuery(sql, dbCurrent);
                     if (count > 0)
@@ -404,6 +472,132 @@ namespace uongoClient
                 }
             }
             else MessageBox.Show("Вы не выбрали строку для редактирования");
+        }
+
+        private void TextBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ObruchAdd_Click(object sender, EventArgs e)
+        {
+            string name = this.ObruchName.Text.Trim();
+            string address = this.ObruchAddress.Text.Trim();
+            string city = this.ObruchCity.Text.Trim();
+            string phone = this.ObruchPhone.Text.Trim();
+
+
+            if (name.Equals("") || address.Equals("") || city.Equals("") || phone.Equals(""))
+            {
+                MessageBox.Show("Не все поля заполнены");
+
+            }
+            else
+            {
+                if (db != null)
+                {
+                    string sql = "INSERT INTO `obruch`(name, address, city, phone) " +
+                        "VALUES('" + name + "', '" + address + "', '" + city + "', '" + phone + "')";
+                    int count = db.ExNonQuery(sql, dbCurrent);
+                    if (count > 0)
+                    {
+                        MessageBox.Show("Успешно");
+                        this.ShowOrbuch();
+                    }
+                    else MessageBox.Show("Не удалось добавить");
+
+                }
+                else
+                {
+                    MessageBox.Show("Нужно подключиться к базе");
+                }
+            }
+        }
+
+        private void ObruchDelete_Click(object sender, EventArgs e)
+        {
+            if (rowIndex != -1)
+            {
+                string id = this.dataGridView1.Rows[rowIndex].Cells[0].Value.ToString();
+                if (db != null)
+                {
+                    string sql = "DELETE FROM `obruch` WHERE `" + dbCurrent + "`.`id`= " + id;
+                    int count = db.ExNonQuery(sql, dbCurrent);
+                    if (count > 0)
+                    {
+                        MessageBox.Show("Успешно");
+                        this.ShowOrbuch();
+                    }
+                    else MessageBox.Show("Не удалось добавить");
+
+                }
+                else
+                {
+                    MessageBox.Show("Нужно подключиться к базе");
+                }
+            } else MessageBox.Show("Нужно выбрать строку в таблице");
+        }
+
+        private void ObruchSave_Click(object sender, EventArgs e)
+        {
+            if (rowIndex != -1)
+            {
+                string id = this.dataGridView1.Rows[rowIndex].Cells[0].Value.ToString();
+                string name = this.ObruchName.Text.Trim();
+                string address = this.ObruchAddress.Text.Trim();
+                string city = this.ObruchCity.Text.Trim();
+                string phone = this.ObruchPhone.Text.Trim();
+
+                if (name.Equals("") || address.Equals("") || city.Equals("") || phone.Equals(""))
+                {
+                    MessageBox.Show("Не все поля заполнены");
+
+                }
+                else
+                {
+                    if (db != null)
+                    {
+                        string sql = "UPDATE `obruch` SET `name`='" + name + "', `address`='" + address + "', `city`='" + city + "', `phone`='" + phone + "' WHERE `id`=" + id;
+                        int count = db.ExNonQuery(sql, dbCurrent);
+                        if (count > 0)
+                        {
+                            MessageBox.Show("Успешно");
+                            this.ShowOrbuch();
+                        }
+                        else MessageBox.Show("Не удалось добавить");
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("Нужно подключиться к базе");
+                    }
+                }
+            }
+            else MessageBox.Show("Нужно выбрать строку в таблице");
+        }
+
+        private void Button5_Click(object sender, EventArgs e)
+        {
+            if (rowIndex != -1)
+            {
+                string id = this.dataGridView1.Rows[rowIndex].Cells[0].Value.ToString();
+                if (db != null)
+                {
+                    string sql = "DELETE FROM `times` WHERE `" + dbCurrent + "`.`id`= " + id;
+                    int count = db.ExNonQuery(sql, dbCurrent);
+                    if (count > 0)
+                    {
+                        MessageBox.Show("Успешно");
+                        this.showTime();
+                    }
+                    else MessageBox.Show("Не удалось добавить");
+
+                }
+                else
+                {
+                    MessageBox.Show("Нужно подключиться к базе");
+                }
+            } else MessageBox.Show("Нужно выбрать строку в таблице");
         }
     }
 }
