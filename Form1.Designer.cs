@@ -58,6 +58,11 @@
             this.ObruchAdd = new System.Windows.Forms.Button();
             this.ObruchDelete = new System.Windows.Forms.Button();
             this.ObruchSave = new System.Windows.Forms.Button();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.MeetingStatus = new System.Windows.Forms.ComboBox();
+            this.MeetingSave = new System.Windows.Forms.Button();
+            this.MeetingDelete = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TimesHours)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TimesMinutes)).BeginInit();
@@ -136,7 +141,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(173, 397);
+            this.label1.Location = new System.Drawing.Point(374, 381);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(87, 15);
             this.label1.TabIndex = 6;
@@ -145,7 +150,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(219, 568);
+            this.label2.Location = new System.Drawing.Point(420, 552);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(41, 13);
             this.label2.TabIndex = 7;
@@ -154,7 +159,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(196, 604);
+            this.label3.Location = new System.Drawing.Point(397, 588);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(54, 13);
             this.label3.TabIndex = 8;
@@ -162,7 +167,7 @@
             // 
             // TimesHours
             // 
-            this.TimesHours.Location = new System.Drawing.Point(442, 397);
+            this.TimesHours.Location = new System.Drawing.Point(643, 381);
             this.TimesHours.Maximum = new decimal(new int[] {
             24,
             0,
@@ -174,7 +179,7 @@
             // 
             // TimesMinutes
             // 
-            this.TimesMinutes.Location = new System.Drawing.Point(487, 397);
+            this.TimesMinutes.Location = new System.Drawing.Point(688, 381);
             this.TimesMinutes.Maximum = new decimal(new int[] {
             59,
             0,
@@ -187,7 +192,7 @@
             // TimesStatus
             // 
             this.TimesStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.TimesStatus.Location = new System.Drawing.Point(266, 565);
+            this.TimesStatus.Location = new System.Drawing.Point(467, 549);
             this.TimesStatus.Name = "TimesStatus";
             this.TimesStatus.Size = new System.Drawing.Size(290, 21);
             this.TimesStatus.TabIndex = 14;
@@ -196,14 +201,14 @@
             // 
             this.TimesWho.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.TimesWho.FormattingEnabled = true;
-            this.TimesWho.Location = new System.Drawing.Point(266, 601);
+            this.TimesWho.Location = new System.Drawing.Point(467, 585);
             this.TimesWho.Name = "TimesWho";
             this.TimesWho.Size = new System.Drawing.Size(290, 21);
             this.TimesWho.TabIndex = 15;
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(266, 628);
+            this.button4.Location = new System.Drawing.Point(467, 612);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(75, 23);
             this.button4.TabIndex = 16;
@@ -213,7 +218,7 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(371, 628);
+            this.button5.Location = new System.Drawing.Point(572, 612);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(75, 23);
             this.button5.TabIndex = 17;
@@ -223,7 +228,7 @@
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(481, 628);
+            this.button6.Location = new System.Drawing.Point(682, 612);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(75, 23);
             this.button6.TabIndex = 18;
@@ -233,7 +238,7 @@
             // 
             // TimesTimePicker
             // 
-            this.TimesTimePicker.Location = new System.Drawing.Point(266, 397);
+            this.TimesTimePicker.Location = new System.Drawing.Point(467, 381);
             this.TimesTimePicker.Name = "TimesTimePicker";
             this.TimesTimePicker.TabIndex = 19;
             this.TimesTimePicker.TrailingForeColor = System.Drawing.Color.MediumOrchid;
@@ -243,7 +248,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label4.Location = new System.Drawing.Point(140, 426);
+            this.label4.Location = new System.Drawing.Point(341, 410);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(95, 15);
             this.label4.TabIndex = 20;
@@ -253,7 +258,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label5.Location = new System.Drawing.Point(186, 451);
+            this.label5.Location = new System.Drawing.Point(387, 435);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(41, 15);
             this.label5.TabIndex = 21;
@@ -263,7 +268,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label6.Location = new System.Drawing.Point(186, 475);
+            this.label6.Location = new System.Drawing.Point(387, 459);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(42, 15);
             this.label6.TabIndex = 22;
@@ -273,7 +278,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label7.Location = new System.Drawing.Point(169, 496);
+            this.label7.Location = new System.Drawing.Point(370, 480);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(60, 15);
             this.label7.TabIndex = 23;
@@ -281,7 +286,7 @@
             // 
             // ObruchName
             // 
-            this.ObruchName.Location = new System.Drawing.Point(237, 423);
+            this.ObruchName.Location = new System.Drawing.Point(438, 407);
             this.ObruchName.Name = "ObruchName";
             this.ObruchName.Size = new System.Drawing.Size(289, 20);
             this.ObruchName.TabIndex = 24;
@@ -289,28 +294,28 @@
             // 
             // ObruchAddress
             // 
-            this.ObruchAddress.Location = new System.Drawing.Point(237, 448);
+            this.ObruchAddress.Location = new System.Drawing.Point(438, 432);
             this.ObruchAddress.Name = "ObruchAddress";
             this.ObruchAddress.Size = new System.Drawing.Size(289, 20);
             this.ObruchAddress.TabIndex = 25;
             // 
             // ObruchCity
             // 
-            this.ObruchCity.Location = new System.Drawing.Point(237, 472);
+            this.ObruchCity.Location = new System.Drawing.Point(438, 456);
             this.ObruchCity.Name = "ObruchCity";
             this.ObruchCity.Size = new System.Drawing.Size(289, 20);
             this.ObruchCity.TabIndex = 26;
             // 
             // ObruchPhone
             // 
-            this.ObruchPhone.Location = new System.Drawing.Point(237, 496);
+            this.ObruchPhone.Location = new System.Drawing.Point(438, 480);
             this.ObruchPhone.Name = "ObruchPhone";
             this.ObruchPhone.Size = new System.Drawing.Size(289, 20);
             this.ObruchPhone.TabIndex = 27;
             // 
             // ObruchAdd
             // 
-            this.ObruchAdd.Location = new System.Drawing.Point(451, 522);
+            this.ObruchAdd.Location = new System.Drawing.Point(652, 506);
             this.ObruchAdd.Name = "ObruchAdd";
             this.ObruchAdd.Size = new System.Drawing.Size(75, 23);
             this.ObruchAdd.TabIndex = 30;
@@ -320,7 +325,7 @@
             // 
             // ObruchDelete
             // 
-            this.ObruchDelete.Location = new System.Drawing.Point(341, 522);
+            this.ObruchDelete.Location = new System.Drawing.Point(542, 506);
             this.ObruchDelete.Name = "ObruchDelete";
             this.ObruchDelete.Size = new System.Drawing.Size(75, 23);
             this.ObruchDelete.TabIndex = 29;
@@ -330,7 +335,7 @@
             // 
             // ObruchSave
             // 
-            this.ObruchSave.Location = new System.Drawing.Point(236, 522);
+            this.ObruchSave.Location = new System.Drawing.Point(437, 506);
             this.ObruchSave.Name = "ObruchSave";
             this.ObruchSave.Size = new System.Drawing.Size(75, 23);
             this.ObruchSave.TabIndex = 28;
@@ -338,12 +343,63 @@
             this.ObruchSave.UseVisualStyleBackColor = true;
             this.ObruchSave.Click += new System.EventHandler(this.ObruchSave_Click);
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(473, 437);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(41, 13);
+            this.label8.TabIndex = 31;
+            this.label8.Text = "Статус";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(727, 455);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(0, 13);
+            this.label9.TabIndex = 32;
+            // 
+            // MeetingStatus
+            // 
+            this.MeetingStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.MeetingStatus.FormattingEnabled = true;
+            this.MeetingStatus.Location = new System.Drawing.Point(520, 434);
+            this.MeetingStatus.Name = "MeetingStatus";
+            this.MeetingStatus.Size = new System.Drawing.Size(289, 21);
+            this.MeetingStatus.TabIndex = 33;
+            // 
+            // MeetingSave
+            // 
+            this.MeetingSave.Location = new System.Drawing.Point(520, 457);
+            this.MeetingSave.Name = "MeetingSave";
+            this.MeetingSave.Size = new System.Drawing.Size(137, 23);
+            this.MeetingSave.TabIndex = 34;
+            this.MeetingSave.Text = "Сохранить";
+            this.MeetingSave.UseVisualStyleBackColor = true;
+            this.MeetingSave.Click += new System.EventHandler(this.MeetingSave_Click);
+            // 
+            // MeetingDelete
+            // 
+            this.MeetingDelete.Location = new System.Drawing.Point(663, 457);
+            this.MeetingDelete.Name = "MeetingDelete";
+            this.MeetingDelete.Size = new System.Drawing.Size(146, 23);
+            this.MeetingDelete.TabIndex = 35;
+            this.MeetingDelete.Text = "Отменить";
+            this.MeetingDelete.UseVisualStyleBackColor = true;
+            this.MeetingDelete.Click += new System.EventHandler(this.MeetingDelete_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(1196, 661);
+            this.Controls.Add(this.MeetingDelete);
+            this.Controls.Add(this.MeetingSave);
+            this.Controls.Add(this.MeetingStatus);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.label8);
             this.Controls.Add(this.ObruchAdd);
             this.Controls.Add(this.ObruchDelete);
             this.Controls.Add(this.ObruchSave);
@@ -415,6 +471,11 @@
         private System.Windows.Forms.Button ObruchAdd;
         private System.Windows.Forms.Button ObruchDelete;
         private System.Windows.Forms.Button ObruchSave;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.ComboBox MeetingStatus;
+        private System.Windows.Forms.Button MeetingSave;
+        private System.Windows.Forms.Button MeetingDelete;
     }
 }
 

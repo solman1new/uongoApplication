@@ -27,6 +27,7 @@ namespace uongoClient
             PushContentInElements();
             hiddenControlTimes();
             hiddenControlObruch();
+            hiddenControlMeeting();
         }
 
         private void PushContentInElements()
@@ -42,6 +43,12 @@ namespace uongoClient
             this.TimesStatus.Items.Add("Занято");
 
             //end times
+
+            //meeting
+
+            this.MeetingStatus.Items.Add("Актуально");
+            this.MeetingStatus.Items.Add("Завершено");
+            //end meeting
         }
 
         private void ConnectToDb()
@@ -145,7 +152,7 @@ namespace uongoClient
                             row[5] = "Дошкольник";
 
                     if (row[8].Equals("1"))
-                        row[8] = "Было";
+                        row[8] = "Завершено";
                     else row[8] = "Актуально";
 
                     this.dataGridView1.Rows.Add(row);
@@ -261,12 +268,18 @@ namespace uongoClient
 
         private void showControlMeeting()
         {
-
+            this.MeetingDelete.Visible = true;
+            this.MeetingSave.Visible = true;
+            this.MeetingStatus.Visible = true;
+            this.label8.Visible = true;
         }
 
         private void hiddenControlMeeting()
         {
-
+            this.MeetingDelete.Visible = false;
+            this.MeetingSave.Visible = false;
+            this.MeetingStatus.Visible = false;
+            this.label8.Visible = false;
         }
 
         private void LoadMore_Click(object sender, EventArgs e)
@@ -383,6 +396,9 @@ namespace uongoClient
                     this.ObruchAddress.Text = this.dataGridView1.Rows[rowIndex].Cells[2].Value.ToString();
                     this.ObruchCity.Text = this.dataGridView1.Rows[rowIndex].Cells[3].Value.ToString();
                     this.ObruchPhone.Text = this.dataGridView1.Rows[rowIndex].Cells[4].Value.ToString();
+                    break;
+                case "deal":
+                    this.MeetingStatus.SelectedIndex = this.MeetingStatus.Items.IndexOf(this.dataGridView1.Rows[rowIndex].Cells[8].Value);
                     break;
                 default:
                     break;
@@ -598,6 +614,61 @@ namespace uongoClient
                     MessageBox.Show("Нужно подключиться к базе");
                 }
             } else MessageBox.Show("Нужно выбрать строку в таблице");
+        }
+
+        private void MeetingSave_Click(object sender, EventArgs e)
+        {
+            if (rowIndex != -1)
+            {
+
+                string id = this.dataGridView1.Rows[rowIndex].Cells[0].Value.ToString();
+                string status = null;
+                if (!string.IsNullOrEmpty(this.MeetingStatus.Text))
+                    status = Convert.ToString(this.MeetingStatus.SelectedIndex);
+                if (db != null)
+                {
+                    //string sql = "DELETE FROM `deal` WHERE `" + dbCurrent + "`.`id`= " + id;
+                    string sql = "UPDATE `deal` SET `end`=" + this.MeetingStatus.SelectedIndex.ToString() + " WHERE `id`=" + id;
+                    int count = db.ExNonQuery(sql, dbCurrent);
+                    if (count > 0)
+                    {
+                        MessageBox.Show("Успешно");
+                        this.showMeeting();
+                    }
+                    else MessageBox.Show("Не удалось добавить");
+
+                }
+                else
+                {
+                    MessageBox.Show("Нужно подключиться к базе");
+                }
+            }
+            else MessageBox.Show("Нужно выбрать строку в таблице");
+        }
+
+        private void MeetingDelete_Click(object sender, EventArgs e)
+        {
+            if (rowIndex != -1)
+            {
+                string id = this.dataGridView1.Rows[rowIndex].Cells[0].Value.ToString();
+                if (db != null)
+                {
+                    string sql = "DELETE FROM `deal` WHERE `" + dbCurrent + "`.`id`= " + id;
+                    int count = db.ExNonQuery(sql, dbCurrent);
+                    if (count > 0)
+                    {
+                        MessageBox.Show("Успешно");
+                        this.showMeeting();
+                    }
+                    else MessageBox.Show("Не удалось добавить");
+
+                }
+                else
+                {
+                    MessageBox.Show("Нужно подключиться к базе");
+                }
+            }
+            else MessageBox.Show("Нужно выбрать строку в таблице");
         }
     }
 }
