@@ -28,6 +28,8 @@ namespace uongoClient
             hiddenControlTimes();
             hiddenControlObruch();
             hiddenControlMeeting();
+            this.Button1_Click(this.button1, null);
+
         }
 
         private void PushContentInElements()
