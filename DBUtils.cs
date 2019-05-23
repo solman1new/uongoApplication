@@ -112,6 +112,35 @@ namespace uongoClient
             return count;
         
         }
+
+        public bool QueryOnExist(string query)
+        {
+            try
+            {
+                conn.Open();
+
+                MySqlCommand cmd = new MySqlCommand();
+                cmd.Connection = conn;
+                cmd.CommandText = query;
+                int countRow = 0;
+                MySqlDataReader rdr = cmd.ExecuteReader();
+
+                while (rdr.Read())
+                {
+                    countRow++;
+                }
+                rdr.Close();
+                conn.Close();
+                if (countRow > 0)
+                    return true;
+
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show("Ошибка при чтении...: " + exc.ToString());
+            }
+            return false;
+        }
         
     }
 }

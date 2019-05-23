@@ -1,21 +1,15 @@
 ﻿using System;
-using System.IO;
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 using System.Windows.Forms;
 
 namespace uongoClient
 {
     public partial class Form1 : Form
     {
-        
-        
+
+
         int idCurrent = -1;
         string dbCurrent = null;
         public DBUtils db = null;
@@ -39,7 +33,7 @@ namespace uongoClient
             this.TimesStatus.Items.Clear();
             this.TimesWho.Items.Add("Дошкольник");
             this.TimesWho.Items.Add("Школьник");
-            
+
 
             this.TimesStatus.Items.Add("Свободно");
             this.TimesStatus.Items.Add("Занято");
@@ -75,7 +69,7 @@ namespace uongoClient
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            
+
         }
 
 
@@ -210,6 +204,8 @@ namespace uongoClient
 
         private void showControlTimes()
         {
+            this.label10.Visible = true;
+            this.label11.Visible = true;
             this.label1.Visible = true;
             this.label2.Visible = true;
             this.label3.Visible = true;
@@ -225,6 +221,8 @@ namespace uongoClient
 
         private void hiddenControlTimes()
         {
+            this.label10.Visible = false;
+            this.label11.Visible = false;
             this.label1.Visible = false;
             this.label2.Visible = false;
             this.label3.Visible = false;
@@ -286,19 +284,19 @@ namespace uongoClient
 
         private void LoadMore_Click(object sender, EventArgs e)
         {
-            if(db.statusConnect())
+            if (db.statusConnect())
             {
-                if(dbCurrent != null)
+                if (dbCurrent != null)
                 {
-                    if(idCurrent != -1)
+                    if (idCurrent != -1)
                     {
-                       string sql = null;
+                        string sql = null;
                         if (dbCurrent.Equals("obruch") || dbCurrent.Equals("times"))
                             sql = "SELECT * FROM `" + dbCurrent + "` WHERE `" + dbCurrent + "`.`id` < " + idCurrent + " ORDER BY `" + dbCurrent + "`.`id` DESC LIMIT 10";
                         else if (dbCurrent.Equals("deal"))
                             sql = "SELECT `deal`.`id`, `times`.`dt`, `childfio`, `birthday`, `deal`.`address`, `obruch`, `parent`, `deal`.`phone`, `end` FROM `deal` " +
                                 "INNER JOIN `times` ON `deal`.`dt`=`times`.`id` " +
-                                " WHERE `deal`.`id` < " + idCurrent +" ORDER BY `deal`.`id` DESC LIMIT 10";
+                                " WHERE `deal`.`id` < " + idCurrent + " ORDER BY `deal`.`id` DESC LIMIT 10";
                         ArrayList arr = db.SqlQuery(sql, dbCurrent);
 
                         bool firstElement = false;
@@ -320,7 +318,7 @@ namespace uongoClient
                                 else row[3] = "Дошкольник";
                             }
 
-                            if(dbCurrent.Equals("deal"))
+                            if (dbCurrent.Equals("deal"))
                             {
                                 ArrayList obruch = db.SqlQuery("SELECT * FROM `obruch`", "obruch");
 
@@ -333,15 +331,18 @@ namespace uongoClient
 
                             this.dataGridView1.Rows.Add(row);
                         }
-                    } else
+                    }
+                    else
                     {
                         MessageBox.Show("Возможно, таблица пуста");
                     }
-                } else
+                }
+                else
                 {
                     MessageBox.Show("Возможно отсутствует подключение к базе");
                 }
-            } else
+            }
+            else
             {
                 MessageBox.Show("Отсутствует подключения к базе. За помощью обратитесь к системному адрминистратору");
             }
@@ -349,6 +350,7 @@ namespace uongoClient
 
         private void Button1_Click(object sender, EventArgs e)
         {
+            this.dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             hiddenControlTimes();
             hiddenControlObruch();
             showControlMeeting();
@@ -358,6 +360,7 @@ namespace uongoClient
 
         private void Button2_Click(object sender, EventArgs e)
         {
+            this.dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             hiddenControlTimes();
             hiddenControlMeeting();
             showControlObruch();
@@ -367,6 +370,7 @@ namespace uongoClient
 
         private void Button3_Click(object sender, EventArgs e)
         {
+            this.dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             hiddenControlMeeting();
             hiddenControlObruch();
             showControlTimes();
@@ -374,7 +378,7 @@ namespace uongoClient
             this.showTime();
         }
 
-        
+
 
         private void DataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -383,8 +387,14 @@ namespace uongoClient
             switch (dbCurrent)
             {
                 case "times":
+                    //this.TimesTimePicker.ShowToday = false;
                     int[] date = Utils.ConverStrDateToIntArrDate(this.dataGridView1.Rows[rowIndex].Cells[1].Value.ToString());
+                    this.TimesTimePicker.RemoveBoldedDate(this.TimesTimePicker.SelectionStart);
                     this.TimesTimePicker.SetDate(new DateTime(date[2], date[1], date[0]));
+                    this.TimesTimePicker.AddBoldedDate(this.TimesTimePicker.SelectionStart);
+                    this.TimesTimePicker.UpdateBoldedDates();
+                    //this.TimesTimePicker.AddBoldedDate(this.TimesTimePicker.date)
+                    //MessageBox.Show(this.TimesTimePicker.SelectionStart.ToString());
                     int[] arrTime = Utils.GetHourAndMinutes((this.dataGridView1.Rows[rowIndex].Cells[1].Value.ToString().Split(new char[] { ' ' })[3]).Split(new char[] { 'г', '.', '-' })[3]);
                     this.TimesHours.Value = arrTime[0];
                     this.TimesMinutes.Value = arrTime[1];
@@ -407,20 +417,28 @@ namespace uongoClient
             }
         }
 
-      
+
 
         private void Button6_Click(object sender, EventArgs e)
         {
-                string result = this.TimesTimePicker.SelectionRange.Start.ToLongDateString() + "-" + this.TimesHours.Value.ToString() + ":" + TimesMinutes.Value.ToString();
-                string type = null;
-                
-                if (!string.IsNullOrEmpty(this.TimesWho.Text))
-                    type = Convert.ToString(this.TimesWho.SelectedIndex);
-                else {
-                    MessageBox.Show("А для кого?");
+            string result = this.TimesTimePicker.SelectionRange.Start.ToLongDateString() + "-" + this.TimesHours.Value.ToString() + ":" + TimesMinutes.Value.ToString();
+            string type = null;
+
+            if (!string.IsNullOrEmpty(this.TimesWho.Text))
+                type = Convert.ToString(this.TimesWho.SelectedIndex);
+            else
+            {
+                MessageBox.Show("А для кого?");
+                return;
+            }
+            if (db != null)
+            {
+                if (db.QueryOnExist("SELECT * FROM `times` WHERE `dt`='" + result + "'"))
+                {
+                    MessageBox.Show("Такое время уже есть в таблице");
                     return;
                 }
-                if (db != null)
+                else
                 {
                     string sql = "INSERT INTO `times`(dt, used, type) " +
                         "VALUES('" + result + "', '0', '" + type + "')";
@@ -431,12 +449,12 @@ namespace uongoClient
                         this.showTime();
                     }
                     else MessageBox.Show("Не удалось добавить");
-
                 }
-                else
-                {
-                    MessageBox.Show("Нужно подключиться к базе");
-                }
+            }
+            else
+            {
+                MessageBox.Show("Нужно подключиться к базе");
+            }
         }
 
         private void TimesTimePicker_DateChanged(object sender, DateRangeEventArgs e)
@@ -473,7 +491,7 @@ namespace uongoClient
 
                 if (db != null)
                 {
-                    
+
                     string sql = "UPDATE `times` SET `dt`='" + result + "', `used`=" + used + ", `type`=" + type + " WHERE `id`=" + this.dataGridView1.Rows[rowIndex].Cells[0].Value.ToString();
                     int count = db.ExNonQuery(sql, dbCurrent);
                     if (count > 0)
@@ -514,16 +532,23 @@ namespace uongoClient
             {
                 if (db != null)
                 {
-                    string sql = "INSERT INTO `obruch`(name, address, city, phone) " +
-                        "VALUES('" + name + "', '" + address + "', '" + city + "', '" + phone + "')";
-                    int count = db.ExNonQuery(sql, dbCurrent);
-                    if (count > 0)
+                    if (db.QueryOnExist("SELECT * FROM `obruch` WHERE `name`='" + name + "' AND `city`='" + city + "'"))
                     {
-                        MessageBox.Show("Успешно");
-                        this.ShowOrbuch();
+                        MessageBox.Show("Учебное учреждение с таким наименованием в этом населенном пункте уже есть в таблице");
+                        return;
                     }
-                    else MessageBox.Show("Не удалось добавить");
-
+                    else
+                    {
+                        string sql = "INSERT INTO `obruch`(name, address, city, phone) " +
+                        "VALUES('" + name + "', '" + address + "', '" + city + "', '" + phone + "')";
+                        int count = db.ExNonQuery(sql, dbCurrent);
+                        if (count > 0)
+                        {
+                            MessageBox.Show("Успешно");
+                            this.ShowOrbuch();
+                        }
+                        else MessageBox.Show("Не удалось добавить");
+                    }
                 }
                 else
                 {
@@ -553,7 +578,8 @@ namespace uongoClient
                 {
                     MessageBox.Show("Нужно подключиться к базе");
                 }
-            } else MessageBox.Show("Нужно выбрать строку в таблице");
+            }
+            else MessageBox.Show("Нужно выбрать строку в таблице");
         }
 
         private void ObruchSave_Click(object sender, EventArgs e)
@@ -615,7 +641,8 @@ namespace uongoClient
                 {
                     MessageBox.Show("Нужно подключиться к базе");
                 }
-            } else MessageBox.Show("Нужно выбрать строку в таблице");
+            }
+            else MessageBox.Show("Нужно выбрать строку в таблице");
         }
 
         private void MeetingSave_Click(object sender, EventArgs e)
