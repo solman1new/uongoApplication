@@ -14,6 +14,12 @@ namespace uongoClient
         string dbCurrent = null;
         public DBUtils db = null;
         int rowIndex = -1;
+        
+        MarkAsFinished mas = null;
+
+        int normalWidth, selectedWidth, unselectWidth;
+        int indexSelButton, oldIndexSelButton;
+
         public Form1()
         {
             InitializeComponent();
@@ -22,12 +28,52 @@ namespace uongoClient
             hiddenControlTimes();
             hiddenControlObruch();
             hiddenControlMeeting();
+
             this.Button1_Click(this.button1, null);
+
+            JustifControl();
+            ResizeForm();
+            normalWidth = ClientRectangle.Width / 3;
+            selectedWidth = normalWidth + (normalWidth / 2) * 2;
+            unselectWidth = normalWidth / 2;
+
+            mas = new MarkAsFinished(new string[2] { "Width: " + ClientRectangle.Width, "Height" + ClientRectangle.Height });
+            mas.Show();
+
+        }
+
+
+        private void ResizeForm()
+        {
+            normalWidth = this.flowLayoutPanel1.Width / 3;
+            selectedWidth = normalWidth + (normalWidth / 2) * 2;
+            unselectWidth = normalWidth / 2;
+            ButtonOnResizeForm();
+
+            this.flowLayoutPanel1.Left = ClientRectangle.Left;
+            this.flowLayoutPanel1.Width = ClientRectangle.Width;
+        }
+
+        private void JustifControl()
+        {
+            this.flowLayoutPanel1.Margin = new Padding(0);
+            this.flowLayoutPanel1.Padding = new Padding(0);
+
+            this.flowLayoutPanel1.Height = this.button1.Height + 1;
+            this.flowLayoutPanel1.Top = ClientRectangle.Top;
+            this.flowLayoutPanel1.Left = ClientRectangle.Left;
+            this.flowLayoutPanel1.Width = ClientRectangle.Width;
 
         }
 
         private void PushContentInElements()
         {
+            //groupBoxs
+            this.ObruchgroupBox.Top = this.MeetinggroupBox.Top = this.TimegroupBox.Top = this.button1.Height + this.dataGridView1.Height + this.loadMore.Height;
+            this.ObruchgroupBox.Height = this.MeetinggroupBox.Height = this.TimegroupBox.Height = ClientRectangle.Height - (this.button1.Height + this.dataGridView1.Height + this.loadMore.Height);
+            this.ObruchgroupBox.Width = this.MeetinggroupBox.Width = this.TimegroupBox.Width = ClientRectangle.Width;
+            this.ObruchgroupBox.Left = this.MeetinggroupBox.Left = this.TimegroupBox.Left = ClientRectangle.Left;
+
             // times
 
             this.TimesStatus.Items.Clear();
@@ -69,7 +115,7 @@ namespace uongoClient
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+          
         }
 
 
@@ -204,82 +250,39 @@ namespace uongoClient
 
         private void showControlTimes()
         {
-            this.label10.Visible = true;
-            this.label11.Visible = true;
-            this.label1.Visible = true;
-            this.label2.Visible = true;
-            this.label3.Visible = true;
-            this.TimesHours.Visible = true;
-            this.TimesMinutes.Visible = true;
-            this.TimesStatus.Visible = true;
-            this.TimesTimePicker.Visible = true;
-            this.TimesWho.Visible = true;
-            this.button4.Visible = true;
-            this.button5.Visible = true;
-            this.button6.Visible = true;
+            indexSelButton = 3;
+            this.TimegroupBox.Visible = true;
+            ResizeButtonOnSelect();
         }
 
         private void hiddenControlTimes()
         {
-            this.label10.Visible = false;
-            this.label11.Visible = false;
-            this.label1.Visible = false;
-            this.label2.Visible = false;
-            this.label3.Visible = false;
-            this.TimesHours.Visible = false;
-            this.TimesMinutes.Visible = false;
-            this.TimesStatus.Visible = false;
-            this.TimesTimePicker.Visible = false;
-            this.TimesWho.Visible = false;
-            this.button4.Visible = false;
-            this.button5.Visible = false;
-            this.button6.Visible = false;
+            
+            //this.TimegroupBox.Visible = false;
         }
 
         private void showControlObruch()
         {
-            this.label4.Visible = true;
-            this.label5.Visible = true;
-            this.label6.Visible = true;
-            this.label7.Visible = true;
-            this.ObruchName.Visible = true;
-            this.ObruchAddress.Visible = true;
-            this.ObruchCity.Visible = true;
-            this.ObruchPhone.Visible = true;
-            this.ObruchSave.Visible = true;
-            this.ObruchDelete.Visible = true;
-            this.ObruchAdd.Visible = true;
+            indexSelButton = 2;
+            ResizeButtonOnSelect();
+            //this.ObruchgroupBox.Visible = true;
         }
 
         private void hiddenControlObruch()
         {
-            this.label4.Visible = false;
-            this.label5.Visible = false;
-            this.label6.Visible = false;
-            this.label7.Visible = false;
-            this.ObruchName.Visible = false;
-            this.ObruchAddress.Visible = false;
-            this.ObruchCity.Visible = false;
-            this.ObruchPhone.Visible = false;
-            this.ObruchSave.Visible = false;
-            this.ObruchDelete.Visible = false;
-            this.ObruchAdd.Visible = false;
+            //this.ObruchgroupBox.Visible = false;
         }
 
         private void showControlMeeting()
         {
-            this.MeetingDelete.Visible = true;
-            this.MeetingSave.Visible = true;
-            this.MeetingStatus.Visible = true;
-            this.label8.Visible = true;
+            indexSelButton = 1;
+            ResizeButtonOnSelect();
+            this.MeetinggroupBox.Visible = true;
         }
 
         private void hiddenControlMeeting()
         {
-            this.MeetingDelete.Visible = false;
-            this.MeetingSave.Visible = false;
-            this.MeetingStatus.Visible = false;
-            this.label8.Visible = false;
+            //this.MeetinggroupBox.Visible = false;
         }
 
         private void LoadMore_Click(object sender, EventArgs e)
@@ -350,32 +353,38 @@ namespace uongoClient
 
         private void Button1_Click(object sender, EventArgs e)
         {
+            indexSelButton = 1;
             this.dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             hiddenControlTimes();
             hiddenControlObruch();
             showControlMeeting();
             rowIndex = -1;
             this.showMeeting();
+            TranslateGroupBoxs();
         }
 
         private void Button2_Click(object sender, EventArgs e)
         {
+            indexSelButton = 2;
             this.dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             hiddenControlTimes();
             hiddenControlMeeting();
             showControlObruch();
             rowIndex = -1;
             this.ShowOrbuch();
+            TranslateGroupBoxs();
         }
 
         private void Button3_Click(object sender, EventArgs e)
         {
+            indexSelButton = 3;
             this.dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             hiddenControlMeeting();
             hiddenControlObruch();
             showControlTimes();
             rowIndex = -1;
             this.showTime();
+            TranslateGroupBoxs();
         }
 
 
@@ -645,6 +654,8 @@ namespace uongoClient
             else MessageBox.Show("Нужно выбрать строку в таблице");
         }
 
+        
+
         private void MeetingSave_Click(object sender, EventArgs e)
         {
             if (rowIndex != -1)
@@ -698,6 +709,123 @@ namespace uongoClient
                 }
             }
             else MessageBox.Show("Нужно выбрать строку в таблице");
+        }
+
+        private void Form1_Resize(object sender, EventArgs e)
+        {
+            ButtonSizeOnResizeWindow();
+
+
+            mas.SetTestLabel(new string[2] { "Width: " + ClientRectangle.Width, "Height" + ClientRectangle.Height });
+        }
+
+        
+
+        private void ButtonSizeOnResizeWindow()
+        {
+            normalWidth = ClientRectangle.Width / 3;
+            indexSelButton = normalWidth + (normalWidth / 2) * 2;
+            unselectWidth = normalWidth / 2;
+        }
+
+        private void ResizeButtonOnSelect()
+        {
+            switch (indexSelButton)
+            {
+                case 1:
+                    this.button1.Width = selectedWidth;
+                    this.button2.Width = unselectWidth;
+                    this.button3.Width = unselectWidth;
+                    
+                    break;
+                case 2:
+                    this.button2.Width = selectedWidth;
+                    this.button1.Width = unselectWidth;
+                    this.button3.Width = unselectWidth;
+                    break;
+                case 3:
+                    this.button3.Width = selectedWidth;
+                    this.button1.Width = unselectWidth;
+                    this.button2.Width = unselectWidth;
+                    break;
+            }
+        }
+        private void ButtonOnResizeForm()
+        {
+            switch (indexSelButton)
+            {
+                case 1:
+                    this.button1.Width = selectedWidth;
+                    this.button2.Width = unselectWidth;
+                    this.button3.Width = unselectWidth;
+                    break;
+                case 2:
+                    this.button2.Width = selectedWidth;
+                    this.button1.Width = unselectWidth;
+                    this.button3.Width = unselectWidth;
+                    break;
+                case 3:
+                    this.button3.Width = selectedWidth;
+                    this.button1.Width = unselectWidth;
+                    this.button2.Width = unselectWidth;
+                    break;
+            }
+        }
+
+        private void TranslateGroupBoxs()
+        {
+            switch (indexSelButton)
+            {
+                case 1:
+                    this.MeetinggroupBox.Left = ClientRectangle.Left;
+                    this.TimegroupBox.Left = ClientRectangle.Right;
+                    this.ObruchgroupBox.Left = ClientRectangle.Right;
+                    break;
+                case 2:
+                    this.ObruchgroupBox.Left = ClientRectangle.Left;
+                    this.TimegroupBox.Left = ClientRectangle.Right;
+                    this.MeetinggroupBox.Left = ClientRectangle.Right;
+                    break;
+                case 3:
+                    this.TimegroupBox.Left = ClientRectangle.Left;
+                    this.MeetinggroupBox.Left = ClientRectangle.Right;
+                    this.ObruchgroupBox.Left = ClientRectangle.Right;
+                    break;
+            }
+        }
+
+        private void Timer1_Tick(object sender, EventArgs e)
+        {
+            if (this.MeetinggroupBox.Left > ClientRectangle.Left)
+            {
+                this.MeetinggroupBox.Left++;
+            }
+            else this.timer1.Stop();
+        }
+
+        private void Timer2_Tick(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Timer3_Tick(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Timer4_Tick(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Timer5_Tick(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Timer6_Tick(object sender, EventArgs e)
+        {
+
         }
     }
 }

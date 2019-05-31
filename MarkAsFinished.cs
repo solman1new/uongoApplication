@@ -23,32 +23,43 @@ namespace uongoClient
         public MarkAsFinished()
         {
             InitializeComponent();
-        }
-
-        private void Button1_Click(object sender, EventArgs e)
-        {
             
-            if (this.textBox1.Text.Trim().Equals(""))
-            {
-                MessageBox.Show("Не все поля заполнены");
-
-            }
-            else
-            {
-                if (db != null)
-                {
-                    string sql = "UPDATE `deal` SET `end`=1 WHERE `id`=" + this.textBox1.Text.Trim();
-                    int count = db.ExNonQuery(sql, "deal");
-                    if (count > 0)
-                        MessageBox.Show("Успешно");
-                    else MessageBox.Show("Не удалось изменить");
-
-                }
-                else
-                {
-                    MessageBox.Show("Нужно подключиться к базе");
-                }
-            }
         }
+
+        public MarkAsFinished(string[] args)
+        {
+            InitializeComponent();
+            SetTestLabel(args);
+            SetSizeWindos();
+            TranslateControl();
+        }
+
+        private void MarkAsFinished_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void SetSizeWindos()
+        {
+            this.Size = new Size(this.label1.Width + 10, 200);
+        }
+
+        private void TranslateControl()
+        {
+            this.label1.Left = ClientRectangle.Width / 2 - this.label1.Width / 2;
+            this.label1.Top = ClientRectangle.Height / 2 - 10;
+
+            this.label2.Left = ClientRectangle.Width / 2 - this.label2.Width / 2;
+            this.label2.Top = ClientRectangle.Height / 2 + 10;
+        }
+
+        public void SetTestLabel(string[] args)
+        {
+            this.label1.Text = args[0];
+            this.label2.Text = args[1];
+            SetSizeWindos();
+            TranslateControl();
+        }
+
     }
 }
