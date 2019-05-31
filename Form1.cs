@@ -15,7 +15,7 @@ namespace uongoClient
         public DBUtils db = null;
         int rowIndex = -1;
         
-        MarkAsFinished mas = null;
+        
 
         int normalWidth, selectedWidth, unselectWidth;
         int indexSelButton, oldIndexSelButton;
@@ -37,8 +37,7 @@ namespace uongoClient
             selectedWidth = normalWidth + (normalWidth / 2) * 2;
             unselectWidth = normalWidth / 2;
 
-            mas = new MarkAsFinished(new string[2] { "Width: " + ClientRectangle.Width, "Height" + ClientRectangle.Height });
-            mas.Show();
+            
 
         }
 
@@ -735,7 +734,7 @@ namespace uongoClient
             ButtonSizeOnResizeWindow();
             ButtonOnResizeForm();
 
-            mas.SetTestLabel(new string[2] { "Width: " + ClientRectangle.Width, "Height" + ClientRectangle.Height });
+            
         }
 
         
