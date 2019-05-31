@@ -99,7 +99,7 @@
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(2, 40);
+            this.dataGridView1.Location = new System.Drawing.Point(2, 39);
             this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
@@ -118,7 +118,7 @@
             this.loadMore.FlatAppearance.BorderColor = System.Drawing.Color.White;
             this.loadMore.FlatAppearance.BorderSize = 0;
             this.loadMore.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.loadMore.Location = new System.Drawing.Point(2, 356);
+            this.loadMore.Location = new System.Drawing.Point(2, 355);
             this.loadMore.Name = "loadMore";
             this.loadMore.Size = new System.Drawing.Size(1002, 50);
             this.loadMore.TabIndex = 2;
@@ -484,26 +484,32 @@
             // 
             // timer1
             // 
+            this.timer1.Interval = 1;
             this.timer1.Tick += new System.EventHandler(this.Timer1_Tick);
             // 
             // timer2
             // 
+            this.timer2.Interval = 1;
             this.timer2.Tick += new System.EventHandler(this.Timer2_Tick);
             // 
             // timer3
             // 
+            this.timer3.Interval = 1;
             this.timer3.Tick += new System.EventHandler(this.Timer3_Tick);
             // 
             // timer4
             // 
+            this.timer4.Interval = 1;
             this.timer4.Tick += new System.EventHandler(this.Timer4_Tick);
             // 
             // timer5
             // 
+            this.timer5.Interval = 1;
             this.timer5.Tick += new System.EventHandler(this.Timer5_Tick);
             // 
             // timer6
             // 
+            this.timer6.Interval = 1;
             this.timer6.Tick += new System.EventHandler(this.Timer6_Tick);
             // 
             // flowLayoutPanel1
@@ -522,13 +528,14 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.ClientSize = new System.Drawing.Size(1008, 677);
+            this.ClientSize = new System.Drawing.Size(1008, 689);
             this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.TimegroupBox);
             this.Controls.Add(this.ObruchgroupBox);
             this.Controls.Add(this.MeetinggroupBox);
             this.Controls.Add(this.loadMore);
             this.Controls.Add(this.dataGridView1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;

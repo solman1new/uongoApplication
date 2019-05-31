@@ -45,6 +45,7 @@ namespace uongoClient
 
         private void ResizeForm()
         {
+            
             normalWidth = this.flowLayoutPanel1.Width / 3;
             selectedWidth = normalWidth + (normalWidth / 2) * 2;
             unselectWidth = normalWidth / 2;
@@ -52,6 +53,20 @@ namespace uongoClient
 
             this.flowLayoutPanel1.Left = ClientRectangle.Left;
             this.flowLayoutPanel1.Width = ClientRectangle.Width;
+            this.dataGridView1.Width = ClientRectangle.Width;
+            this.loadMore.Width = ClientRectangle.Width;
+
+            this.MeetinggroupBox.Width = ClientRectangle.Width;
+            this.TimegroupBox.Width = ClientRectangle.Width;
+            this.ObruchgroupBox.Width = ClientRectangle.Width;
+
+            this.MeetinggroupBox.Left = ClientRectangle.Right;
+            this.TimegroupBox.Left = ClientRectangle.Right;
+            this.ObruchgroupBox.Left = ClientRectangle.Right;
+
+            TranslateGroupBoxs();
+
+            Console.WriteLine(this.flowLayoutPanel1.Width);
         }
 
         private void JustifControl()
@@ -279,6 +294,8 @@ namespace uongoClient
             ResizeButtonOnSelect();
             this.MeetinggroupBox.Visible = true;
         }
+
+        
 
         private void hiddenControlMeeting()
         {
@@ -713,8 +730,10 @@ namespace uongoClient
 
         private void Form1_Resize(object sender, EventArgs e)
         {
+            
+            ResizeForm();
             ButtonSizeOnResizeWindow();
-
+            ButtonOnResizeForm();
 
             mas.SetTestLabel(new string[2] { "Width: " + ClientRectangle.Width, "Height" + ClientRectangle.Height });
         }
@@ -733,20 +752,28 @@ namespace uongoClient
             switch (indexSelButton)
             {
                 case 1:
-                    this.button1.Width = selectedWidth;
-                    this.button2.Width = unselectWidth;
-                    this.button3.Width = unselectWidth;
-                    
+                    this.timer1.Start();
+                    this.timer4.Start();
+                    this.timer6.Start();
+                    //this.button1.Width = selectedWidth;
+                    //this.button2.Width = unselectWidth;
+                    //this.button3.Width = unselectWidth;
                     break;
                 case 2:
-                    this.button2.Width = selectedWidth;
-                    this.button1.Width = unselectWidth;
-                    this.button3.Width = unselectWidth;
+                    this.timer3.Start();
+                    this.timer2.Start();
+                    this.timer6.Start();
+                    //this.button2.Width = selectedWidth;
+                    //this.button1.Width = unselectWidth;
+                    //this.button3.Width = unselectWidth;
                     break;
                 case 3:
-                    this.button3.Width = selectedWidth;
-                    this.button1.Width = unselectWidth;
-                    this.button2.Width = unselectWidth;
+                    this.timer5.Start();
+                    this.timer2.Start();
+                    this.timer4.Start();
+                    //this.button3.Width = selectedWidth;
+                    //this.button1.Width = unselectWidth;
+                    //this.button2.Width = unselectWidth;
                     break;
             }
         }
@@ -796,36 +823,44 @@ namespace uongoClient
 
         private void Timer1_Tick(object sender, EventArgs e)
         {
-            if (this.MeetinggroupBox.Left > ClientRectangle.Left)
-            {
-                this.MeetinggroupBox.Left++;
-            }
+            if(this.button1.Width < selectedWidth)
+                this.button1.Width += 30;
             else this.timer1.Stop();
         }
 
         private void Timer2_Tick(object sender, EventArgs e)
         {
-
+            if(this.button1.Width > unselectWidth)
+                this.button1.Width -= 30;
+            else this.timer2.Stop();
         }
 
         private void Timer3_Tick(object sender, EventArgs e)
         {
-
+            if(this.button2.Width < selectedWidth)
+                this.button2.Width += 30;
+            else this.timer3.Stop();
         }
 
         private void Timer4_Tick(object sender, EventArgs e)
         {
-
+            if (this.button2.Width > unselectWidth)
+                this.button2.Width -= 30;
+            else this.timer4.Stop();
         }
 
         private void Timer5_Tick(object sender, EventArgs e)
         {
-
+            if (this.button3.Width < selectedWidth)
+                this.button3.Width += 30;
+            else this.timer5.Stop();
         }
 
         private void Timer6_Tick(object sender, EventArgs e)
         {
-
+            if (this.button3.Width > unselectWidth)
+                this.button3.Width -= 30;
+            else this.timer6.Stop();
         }
     }
 }
